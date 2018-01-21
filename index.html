@@ -76,6 +76,9 @@
 </head>
 <body>
 
+<h2>Peak Service Hour Data Explorer</h2>
+<hr>
+
 <button class='runButton' onclick="filterAndAdd()">
 	Generate Coverage Area
 </button>
@@ -84,6 +87,15 @@
 	<div class="processing">Processing data...</div>
 	<div class="idling" style="display: none">Idle</div>
 </div>
+
+<h4>What am I looking at?</h4>
+
+<p> For more information on how the underlying data was generated, please read my post <b><a href="http://kuanbutts.com/2018/01/19/peak-hours-gtfs-computing/">Computing Variation in Peak Hour Spreads
+</a></b>. The data being filtered in this visualization tool allows for you to take preprocessed data that has all stops in this GTFS feed’s system (San Francisco MTA) that have some peak hour service and only render those that run service in the target window.</p>
+
+<p>High quality peak hour transit service in this case is defined as any stop where at least 8 buses arrive at any stop within 250 feet of a given bus stop in an hour window. It is also constrained by a check that ensures that those 8 arrivals are composed of 2 or more discrete bus routes.</p>
+
+<p>This is a very quickly whipped up site, so the filtering logic here will need to be refined. If you look in the function filterAndAdd(), you will see a series of if statements placed within a allPossibleStops for loop. More conditions need to be added here for stops that provide coverage around smaller time windows, as well as to omit stops that do not provide enough discrete hour chunks in a given day (say, you want to limit by no less than 4 discrete peak service hours per day).</p>
 
 <h5>AM Peak Period</h5>
 <div class="slider">
