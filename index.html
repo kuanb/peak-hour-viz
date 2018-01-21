@@ -184,7 +184,8 @@
 
 			allPossibleStops.features.forEach(function(ea) {
 				// First check if it passes the am/pm constraints
-				var passOkay = false;
+				var passOkayAM = false;
+				var passOkayPM = false;
 				var hrs = ea.properties.hours;
 				hrs.forEach(function(hr) {
 					var s = hr.start;
@@ -197,13 +198,14 @@
 						e = e - (24 * oneHour);
 					}
 
-					if ((s > am_start) && (s < am_end)) { passOkay = true; }
-					if ((s > pm_start) && (s < pm_end)) { passOkay = true; }
-					if ((e > am_start) && (e < am_end)) { passOkay = true; }
-					if ((e > pm_start) && (e < pm_end)) { passOkay = true; }
+					if ((s > am_start) && (s < am_end)) { passOkayAM = true; }
+					if ((s > pm_start) && (s < pm_end)) { passOkayAM = true; }
+					
+					if ((e > am_start) && (e < am_end)) { passOkayPM = true; }
+					if ((e > pm_start) && (e < pm_end)) { passOkayPM = true; }
 				});
 
-				if (passOkay) {
+				if (passOkayAM && passOkayPM) {
 					var coords = ea.geometry.coordinates;
 					var coordsRev = [coords[1], coords[0]];
 
